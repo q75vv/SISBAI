@@ -142,6 +142,34 @@ class Board:
                     cells.append(cell)
             print(f"{r} " + " ".join(cells))
 
+    def get_display_rows(self, hide_ships=False):
+        """Return board rows as a list of strings (for side-by-side rendering)."""
+        rows = []
+        for r, row in enumerate(self.grid):
+            cells = []
+            for cell in row:
+                if hide_ships and cell == SHIP:
+                    cells.append(EMPTY)
+                else:
+                    cells.append(cell)
+            rows.append(f"{r} " + " ".join(cells))
+        return rows
+
+
+def display_both_boards(player_board, ai_board):
+    """Display the player's board and the opponent's board side by side."""
+    header     = "  " + " ".join(str(i) for i in range(BOARD_SIZE))
+    gap = "      "
+
+    print(f"  YOUR BOARD{gap}        OPPONENT'S BOARD")
+    print(f"{header}{gap}  {header}")
+
+    player_rows = player_board.get_display_rows(hide_ships=False)
+    ai_rows     = ai_board.get_display_rows(hide_ships=True)
+
+    for p_row, a_row in zip(player_rows, ai_rows):
+        print(f"{p_row}{gap}  {a_row}")
+
 
 class Game:
     def __init__(self):
@@ -182,21 +210,16 @@ class Game:
 
 
 if __name__ == "__main__":
-    # Quick sanity check: place ships and print the board
-    board = Board()
-    board.place_ships_randomly()
-    print("=== Randomly placed ships ===")
-    board.display()
-    print()
+    player_board = Board()
+    ai_board = Board()
+    player_board.place_ships_randomly()
+    ai_board.place_ships_randomly()
 
-    # Fire some random shots
-    print("=== Firing 10 random shots ===")
-    shots = random.sample(
-        [(r, c) for r in range(BOARD_SIZE) for c in range(BOARD_SIZE)], 10
-    )
-    for r, c in shots:
-        result = board.receive_shot(r, c)
-        print(f"  Shot ({r},{c}): {result}")
+    all_cells = [(r, c) for r in range(BOARD_SIZE) for c in range(BOARD_SIZE)]
+    for r, c in random.sample(all_cells, 15):
+        player_board.receive_shot(r, c)
+    for r, c in random.sample(all_cells, 15):
+        ai_board.receive_shot(r, c)
 
-    print()
-    board.display()
+    print("=== Game State ===")
+    display_both_boards(player_board, ai_board)
