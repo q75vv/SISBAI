@@ -1,7 +1,15 @@
-"""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 Battleship Game Engine
-Handles board state, ship placement, and shot logic.
-"""
+Supports 4 difficulty levels, each using a progressively smarter strategy.
+
+Handles board state, ship, placement, and shot logic.
+
+@author Jackson McIntyre & Nicolas Serrano
+@date March 26, 2026
+@version 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
 
 import random
 
