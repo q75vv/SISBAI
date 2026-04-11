@@ -97,10 +97,10 @@ def format_result(result, shooter="AI"):
     if result == "miss":
         return f"{shooter} missed."
     elif result == "hit":
-        return f"💥 {shooter} scored a HIT!"
+        return f"{shooter} scored a HIT!"
     elif result.startswith("sunk:"):
         ship = result.split(":")[1]
-        return f"🔥 {shooter} SUNK the {ship}!"
+        return f"{shooter} SUNK the {ship}!"
     return result
 
 
@@ -182,9 +182,9 @@ def play():
     print("\n" + "=" * 50)
     # Display message indicating winner
     if game.winner == "player":
-        print("  🏆  YOU WIN! All enemy ships sunk.")
+        print("YOU WIN! All enemy ships sunk.")
     else:
-        print("  💀  GAME OVER. The AI sunk all your ships.")
+        print("GAME OVER. The AI sunk all your ships.")
     print("=" * 50 + "\n")
 
 
